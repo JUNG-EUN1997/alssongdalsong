@@ -17,6 +17,7 @@ public class SchoolSaveReqDto {
 
     public School toEntity() {
         return School.builder()
+                .schoolCode(this.schoolCode)
                 .name(this.name)
                 .address(this.address)
                 .build();

@@ -34,7 +34,7 @@ public class SchoolController {
     @GetMapping("/school/list")
     public ResponseEntity<?> schoolList(Pageable pageable){
         Page<SchoolListResDto> schoolList = schoolService.schoolList(pageable);
-        CommonResDto commonResDto = new CommonResDto(HttpStatus.CREATED, CommonMsg.SCHOOL_CREATED, schoolList);
+        CommonResDto commonResDto = new CommonResDto(HttpStatus.CREATED, CommonMsg.LIST_RETURN, schoolList);
         return new ResponseEntity<>(commonResDto,HttpStatus.CREATED);
     }
 }

@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 public class SchoolListResDto {
     private Long id;
 
+    private Integer schoolCode;
     private String name;
     private String address;
 }

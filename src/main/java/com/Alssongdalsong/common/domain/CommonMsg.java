@@ -2,6 +2,7 @@ package com.Alssongdalsong.common.domain;
 
 
 public enum CommonMsg {
+    LIST_RETURN("리스트를 성공적으로 불러왔습니다."),
 //    MEMBER 영역
     MEMBER_CREATED("회원이 성공적으로 생성되었습니다."),
 
