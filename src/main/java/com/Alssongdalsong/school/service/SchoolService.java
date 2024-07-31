@@ -9,10 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.Optional;
 
 @Service
+@Transactional(readOnly = true)
 public class SchoolService {
     private final SchoolRepository schoolRepository;
 
@@ -21,10 +24,16 @@ public class SchoolService {
         this.schoolRepository = schoolRepository;
     }
 
+    @Transactional
     public School schoolCreate(SchoolSaveReqDto dto){
-        School school = dto.toEntity();
-        schoolRepository.save(school);
-        return school;
+        Optional<School> school = schoolRepository.findBySchoolCode(dto.getSchoolCode());
+        if(school.isEmpty()){
+            School saveSchool = dto.toEntity();
+            schoolRepository.save(saveSchool);
+            return saveSchool;
+        }else{
+            throw new IllegalArgumentException("중복된 학교 코드입니다.");
+        }
     }
 
     public Page<SchoolListResDto> schoolList(Pageable pageable){

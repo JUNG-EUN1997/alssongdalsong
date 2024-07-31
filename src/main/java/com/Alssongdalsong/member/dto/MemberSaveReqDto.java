@@ -35,10 +35,10 @@ public class MemberSaveReqDto {
     @Builder.Default
     private Integer section = null; // 반
 
-    public Member toEntity(School school) {
+    public Member toEntity(String password, School school) {
         return Member.builder()
                 .email(this.email)
-                .password(this.password)
+                .password(password)
                 .name(this.name)
                 .phone(this.phone)
                 .school(school)

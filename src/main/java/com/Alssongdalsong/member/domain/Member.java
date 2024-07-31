@@ -20,7 +20,7 @@ public class Member extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String email;
     private String password;
 
@@ -58,7 +58,7 @@ public class Member extends BaseTimeEntity {
                 .name(this.name)
                 .phone(this.phone)
                 .role(this.role)
-                .schoolName(this.school.getName())
+                .schoolName((this.school != null) ? this.school.getName() : null)
                 .updateTime(this.getUpdateTime())
                 .createdTime(this.getCreatedTime())
                 .build();
