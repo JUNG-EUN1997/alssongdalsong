@@ -8,7 +8,12 @@ public enum CommonMsg {
 
 //    SCHOOL 영역
     SCHOOL_CREATED("학교가 성공적으로 생성되었습니다."),
-    SCHOOL_NOT_FOUNT("존재하지 않는 학교 입니다.");
+    SCHOOL_NOT_FOUNT("존재하지 않는 학교 입니다."),
+
+//    CATEGORY 영역
+    CATEGORY_CREATED("카테고리가 성공적으로 생성되었습니다.")
+
+    ;
 
     private final String message;
 
