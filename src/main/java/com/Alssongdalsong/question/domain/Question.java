@@ -27,7 +27,6 @@ public class Question extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     @Builder.Default
     private QuestionType questionType = QuestionType.OPTION;
-    private String answer; // 타입이 text면 문제에 정답 저장
 
     private String title;
     private String description;
@@ -37,4 +36,20 @@ public class Question extends BaseTimeEntity {
 
     @Builder.Default
     private Boolean isRequired = false;
+
+
+    private String question1; //문항1
+    private Boolean isQuestion1; //문항1 정답 여부
+    private String question2; //문항2
+    private Boolean isQuestion2; //문항2 정답 여부
+    private String question3; //문항3
+    private Boolean isQuestion3; //문항3 정답 여부
+    private String question4; //문항4
+    private Boolean isQuestion4; //문항4 정답 여부
+
+    //    private String answer; // 타입이 text면 문제에 정답 저장
+    private String answerWord; // 타입이 text면 문제에 정답 저장
+
+
+
 }

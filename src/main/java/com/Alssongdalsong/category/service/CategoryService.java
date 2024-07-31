@@ -43,4 +43,14 @@ public class CategoryService {
         Page<CategoryListResDto> categoryListResDtos = categoryPage.map(a -> a.fromListEntity());
         return categoryListResDtos;
     }
+
+
+    public Category findByIdRequired(Long id){
+        return categoryRepository.findById(id).orElseThrow(()->new EntityNotFoundException("해당 문제의 카테고리를 찾을 수 없습니다."));
+    }
+
+    public Category findById(Long id){
+        return categoryRepository.findById(id).orElse(null);
+    }
+
 }
