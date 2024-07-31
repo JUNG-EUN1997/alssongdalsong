@@ -15,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -42,7 +43,9 @@ public class MemberController {
         CommonResDto commonResDto = new CommonResDto(HttpStatus.CREATED, CommonMsg.MEMBER_CREATED, member.getId());
         return new ResponseEntity<>(commonResDto,HttpStatus.CREATED);
     }
+
 //    회원 리스트
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/member/list")
     public ResponseEntity<?> memberList(Pageable pageable){
         Page<MemberListResDto> memberList = memberService.memberList(pageable);
