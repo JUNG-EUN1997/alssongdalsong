@@ -3,7 +3,7 @@ package com.Alssongdalsong.question.domain;
 import com.Alssongdalsong.category.domain.Category;
 import com.Alssongdalsong.common.domain.BaseTimeEntity;
 import com.Alssongdalsong.member.domain.Member;
-import com.Alssongdalsong.question.dto.QuestionListResDto;
+import com.Alssongdalsong.question.dto.QuestionNaireListResDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -51,8 +51,8 @@ public class QuestionNaire extends BaseTimeEntity {
         this.pointClickSoundPath = s3ClickSoundPath;
     }
 
-    public QuestionListResDto fromListEntity() {
-        return QuestionListResDto.builder()
+    public QuestionNaireListResDto fromListEntity() {
+        return QuestionNaireListResDto.builder()
                 .id(this.id)
                 .title(this.title)
                 .categoryName((this.category != null) ? this.category.getName() : null)

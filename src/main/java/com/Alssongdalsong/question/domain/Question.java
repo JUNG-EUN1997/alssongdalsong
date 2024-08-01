@@ -1,6 +1,8 @@
 package com.Alssongdalsong.question.domain;
 
 import com.Alssongdalsong.common.domain.BaseTimeEntity;
+import com.Alssongdalsong.question.dto.QuestionListResDto;
+import com.Alssongdalsong.question.dto.QuestionNaireListResDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -51,5 +53,24 @@ public class Question extends BaseTimeEntity {
     private String answerWord; // 타입이 text면 문제에 정답 저장
 
 
-
+    public QuestionListResDto fromListEntity() {
+        return QuestionListResDto.builder()
+                .id(this.id)
+                .questionType(this.questionType)
+                .title(this.title)
+                .description(this.description)
+                .itemOrder(this.itemOrder)
+                .isRequired(this.isRequired)
+                .question1(this.question1)
+                .isQuestion1(this.isQuestion1)
+                .question2(this.question2)
+                .isQuestion2(this.isQuestion2)
+                .question3(this.question3)
+                .isQuestion3(this.isQuestion3)
+                .question4(this.question4)
+                .isQuestion4(this.isQuestion4)
+                .updateTime(this.getUpdateTime())
+                .createdTime(this.getCreatedTime())
+                .build();
+    }
 }
