@@ -33,14 +33,26 @@ public class QuestionController {
     //    문제 생성
     @PreAuthorize("hasRole('ADMIN') or hasRole('TEACHER')")
     @PostMapping("/question/create")
-    public ResponseEntity<?> questionCreate(@RequestPart(value="container") QuestionContainerSaveReqDto dto)
+    public ResponseEntity<?> questionCreate(@RequestPart(value="container") QuestionContainerSaveReqDto dto,
+                                            @RequestPart(value="bgmPath") MultipartFile bgmPath,
+                                            @RequestPart(value="bgImagePath") MultipartFile bgImagePath,
+                                            @RequestPart(value="pointClickSoundPath") MultipartFile pointClickSoundPath
+                                            )
     {
-        QuestionNaire questionNaire = questionService.questionCreate(dto);
+        QuestionNaire questionNaire = questionService.questionCreate(dto,bgmPath,bgImagePath,pointClickSoundPath);
         CommonResDto commonResDto = new CommonResDto(HttpStatus.CREATED, CommonMsg.QUESTION_CREATED, questionNaire.getId());
         return new ResponseEntity<>(commonResDto,HttpStatus.CREATED);
     }
 
     //    문제 리스트
+    @GetMapping("/question/alllist")
+    public ResponseEntity<?> questionAllList(Pageable pageable){
+        Page<QuestionListResDto> questionList = questionService.questionAllList(pageable);
+        CommonResDto commonResDto = new CommonResDto(HttpStatus.CREATED, CommonMsg.LIST_RETURN, questionList);
+        return new ResponseEntity<>(commonResDto,HttpStatus.CREATED);
+    }
+
+    //    내가 만든 문제 리스트
     @GetMapping("/question/list")
     public ResponseEntity<?> questionList(Pageable pageable){
         Page<QuestionListResDto> questionList = questionService.questionList(pageable);

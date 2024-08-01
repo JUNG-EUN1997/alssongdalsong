@@ -2,6 +2,7 @@ package com.Alssongdalsong.question.domain;
 
 import com.Alssongdalsong.category.domain.Category;
 import com.Alssongdalsong.common.domain.BaseTimeEntity;
+import com.Alssongdalsong.member.domain.Member;
 import com.Alssongdalsong.question.dto.QuestionListResDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,6 +30,10 @@ public class QuestionNaire extends BaseTimeEntity {
     private String description;
 
     @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member member;
+
+    @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
 
@@ -39,6 +44,12 @@ public class QuestionNaire extends BaseTimeEntity {
     @OneToMany(mappedBy = "questionNaire", cascade = CascadeType.PERSIST)
     @Builder.Default
     private List<Question> questions = new ArrayList<>();
+
+    public void updateImagePath(String s3BgImagePath, String s3BgmPath, String s3ClickSoundPath) {
+        this.bgImagePath = s3BgImagePath;
+        this.bgmPath = s3BgmPath;
+        this.pointClickSoundPath = s3ClickSoundPath;
+    }
 
     public QuestionListResDto fromListEntity() {
         return QuestionListResDto.builder()
