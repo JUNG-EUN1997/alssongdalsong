@@ -9,6 +9,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 // 테이블 순서
 // QuestionNaire > Question > QuestionItem
@@ -33,6 +35,10 @@ public class QuestionNaire extends BaseTimeEntity {
     private String bgmPath; //배경음
     private String bgImagePath; // 배경이미지
     private String pointClickSoundPath; // 클릭 효과음
+
+    @OneToMany(mappedBy = "questionNaire", cascade = CascadeType.PERSIST)
+    @Builder.Default
+    private List<Question> questions = new ArrayList<>();
 
     public QuestionListResDto fromListEntity() {
         return QuestionListResDto.builder()

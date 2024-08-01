@@ -9,6 +9,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,10 +20,12 @@ public class QuestionContainerSaveReqDto {
     private String title;
     private String description;
     private Long categoryId;
+
+    private List<QuestionSaveReqDto> questionSaveReqDtos;
+
     private MultipartFile bgmPath; //배경음
     private MultipartFile bgImagePath; // 배경이미지
     private MultipartFile pointClickSoundPath; // 클릭 효과음
-    private QuestionSaveReqDto questionSaveReqDto;
 
     public QuestionNaire toEntity(Category category, String bgmPath, String bgImagePath, String pointClickSoundPath) {
         return QuestionNaire.builder()

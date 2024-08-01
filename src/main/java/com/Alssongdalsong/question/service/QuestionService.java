@@ -2,8 +2,10 @@ package com.Alssongdalsong.question.service;
 
 import com.Alssongdalsong.category.domain.Category;
 import com.Alssongdalsong.category.service.CategoryService;
+import com.Alssongdalsong.question.domain.Question;
 import com.Alssongdalsong.question.domain.QuestionNaire;
 import com.Alssongdalsong.question.dto.QuestionDetResDto;
+import com.Alssongdalsong.question.dto.QuestionSaveReqDto;
 import com.Alssongdalsong.question.repository.QuestionNaireRepository;
 import com.Alssongdalsong.question.dto.QuestionListResDto;
 import com.Alssongdalsong.question.dto.QuestionContainerSaveReqDto;
@@ -12,6 +14,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @Service
 public class QuestionService {
@@ -27,9 +32,15 @@ public class QuestionService {
     @Transactional
     public QuestionNaire questionCreate(QuestionContainerSaveReqDto dto){
         Category category = categoryService.findByIdRequired(dto.getCategoryId());
-        QuestionNaire saveQuestion = dto.toEntity(category, "","","");
-        questionNaireRepository.save(saveQuestion);
-        return saveQuestion;
+        QuestionNaire questionNaire = dto.toEntity(category, "","","");
+
+        for(QuestionSaveReqDto questionDto : dto.getQuestionSaveReqDtos()){
+            Question question = questionDto.toEntity(questionNaire);
+            questionNaire.getQuestions().add(question);
+        }
+
+        QuestionNaire savedQuestionNaire = questionNaireRepository.save(questionNaire);
+        return savedQuestionNaire;
     }
 
     public Page<QuestionListResDto> questionList(Pageable pageable){
@@ -38,7 +49,7 @@ public class QuestionService {
         return questionListResDtos;
     }
 
-    public QuestionDetResDto questionDetail(){
+    public QuestionDetResDto questionDetail(Long id){
         return null;
     }
 }
